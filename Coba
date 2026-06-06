@@ -1,0 +1,148 @@
+import streamlit as st
+
+# =====================================
+# KONFIGURASI HALAMAN
+# =====================================
+st.set_page_config(
+    page_title="DigiChem",
+    page_icon="🧪",
+    layout="wide"
+)
+
+# =====================================
+# SIDEBAR MENU
+# =====================================
+st.sidebar.title("🧪 DigiChem")
+st.sidebar.markdown("### Kalkulator Kimia Digital")
+
+menu = st.sidebar.selectbox(
+    "Pilih Menu",
+    [
+        "🏠 Home",
+        "⚗️ Molaritas",
+        "⚖️ Normalitas",
+        "🧬 Berat Molekul (BM)",
+        "📏 Berat Ekivalen (BE)",
+        "💧 PPM",
+        "🌡️ Konversi Suhu",
+        "ℹ️ Tentang"
+    ]
+)
+
+# =====================================
+# HALAMAN HOME
+# =====================================
+if menu == "🏠 Home":
+    st.title("🧪 DigiChem")
+    st.subheader("Kalkulator Kimia Digital")
+    
+    st.write("""
+    Selamat datang di DigiChem.
+    
+    Fitur:
+    - Perhitungan Molaritas
+    - Perhitungan Normalitas
+    - Berat Molekul (BM)
+    - Berat Ekivalen (BE)
+    - PPM
+    - Konversi Suhu
+    """)
+
+# =====================================
+# MOLARITAS
+# =====================================
+elif menu == "⚗️ Molaritas":
+    st.header("⚗️ Kalkulator Molaritas")
+    
+    mol = st.number_input("Jumlah Mol", min_value=0.0)
+    volume = st.number_input("Volume (L)", min_value=0.1)
+
+    if st.button("Hitung Molaritas"):
+        hasil = mol / volume
+        st.success(f"Molaritas = {hasil:.4f} M")
+
+# =====================================
+# NORMALITAS
+# =====================================
+elif menu == "⚖️ Normalitas":
+    st.header("⚖️ Kalkulator Normalitas")
+    
+    molaritas = st.number_input("Molaritas (M)", min_value=0.0)
+    faktor = st.number_input("Faktor Ekuivalen", min_value=1.0)
+
+    if st.button("Hitung Normalitas"):
+        hasil = molaritas * faktor
+        st.success(f"Normalitas = {hasil:.4f} N")
+
+# =====================================
+# BM
+# =====================================
+elif menu == "🧬 Berat Molekul (BM)":
+    st.header("🧬 Berat Molekul")
+    
+    st.info("Masukkan nilai BM yang sudah dihitung dari Ar unsur.")
+
+    bm = st.number_input("Berat Molekul (g/mol)", min_value=0.0)
+
+    st.success(f"BM = {bm} g/mol")
+
+# =====================================
+# BE
+# =====================================
+elif menu == "📏 Berat Ekivalen (BE)":
+    st.header("📏 Berat Ekivalen")
+    
+    bm = st.number_input("BM", min_value=0.0)
+    faktor = st.number_input("Faktor Ekuivalen", min_value=1.0)
+
+    if st.button("Hitung BE"):
+        hasil = bm / faktor
+        st.success(f"BE = {hasil:.4f} g/ekuivalen")
+
+# =====================================
+# PPM
+# =====================================
+elif menu == "💧 PPM":
+    st.header("💧 Kalkulator PPM")
+
+    massa = st.number_input("Massa Zat (mg)", min_value=0.0)
+    volume = st.number_input("Volume Larutan (L)", min_value=0.1)
+
+    if st.button("Hitung PPM"):
+        ppm = massa / volume
+        st.success(f"PPM = {ppm:.4f}")
+
+# =====================================
+# KONVERSI SUHU
+# =====================================
+elif menu == "🌡️ Konversi Suhu":
+    st.header("🌡️ Konversi Suhu")
+
+    celsius = st.number_input("Suhu Celsius")
+
+    if st.button("Konversi"):
+        kelvin = celsius + 273.15
+        fahrenheit = (celsius * 9/5) + 32
+        reamur = celsius * 4/5
+
+        st.success(f"Kelvin : {kelvin:.2f} K")
+        st.success(f"Fahrenheit : {fahrenheit:.2f} °F")
+        st.success(f"Reamur : {reamur:.2f} °R")
+
+# =====================================
+# TENTANG
+# =====================================
+elif menu == "ℹ️ Tentang":
+    st.header("ℹ️ Tentang DigiChem")
+
+    st.write("""
+    DigiChem merupakan web kalkulator kimia digital
+    yang membantu perhitungan:
+    
+    ✔ Molaritas  
+    ✔ Normalitas  
+    ✔ Berat Molekul  
+    ✔ Berat Ekivalen  
+    ✔ PPM  
+    ✔ Konversi Suhu
+    """)
